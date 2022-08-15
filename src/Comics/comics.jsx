@@ -2,7 +2,6 @@ import {
   Image,
   Box,
   Center,
-  Stack,
   Heading,
   Button,
   Modal,
@@ -16,19 +15,18 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-// import React, { useState } from "react";
 
-function Characters(props) {
+function Comics(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box textAlign={"center"} justifyItems={"center"}>
-      <Center py={12}>
+    <Box textAlign={"center"}>
+      <Center py={12} mx={"10px"} bgOpacity="50%">
         <Box
           role={"group"}
           p={6}
           maxW={"330px"}
-          minW={"330px"}
+          minW={"250px"}
           boxShadow={"dark-lg"}
           rounded={"lg"}
           pos={"relative"}
@@ -47,25 +45,24 @@ function Characters(props) {
             <Image
               rounded={"lg"}
               height={250}
-              width={200}
+              width={"200px"}
               src={`${props.path}.${props.extension}`}
               boxShadow={"dark-lg"}
             />
           </Box>
-          <Stack pt={16} align={"center"}>
-            <Heading
-              fontSize={"2xl"}
-              fontFamily={"body"}
-              fontWeight={500}
-              color="#E9E9EB"
-            >
-              {props.title}
-            </Heading>
-          </Stack>
+          <Heading
+            pt={20}
+            fontSize={"2xl"}
+            fontFamily={"body"}
+            fontWeight={500}
+            color="#E9E9EB"
+          >
+            {props.title}
+          </Heading>
         </Box>
       </Center>
       <>
-        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={"outside"}>
           <ModalOverlay />
           <ModalContent bg="#171f30" borderRadius="2xl">
             <ModalHeader color="#d1d1dc">{props.title}</ModalHeader>
@@ -78,10 +75,10 @@ function Characters(props) {
                   width={200}
                   src={`${props.path}.${props.extension}`}
                 />
-                <Text color="#d1d1dc" p={3}>
+                <Text color="#d1d1dc" p={3} fontSize={"xl"}>
                   Description
                 </Text>
-                <Text color="#d1d1dc" textAlign="justify">
+                <Text color="#d1d1dc" textAlign="justify" fontSize={"xl"}>
                   {props.description}
                 </Text>
               </VStack>
@@ -98,4 +95,4 @@ function Characters(props) {
   );
 }
 
-export default Characters;
+export default Comics;
