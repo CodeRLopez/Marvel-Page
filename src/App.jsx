@@ -87,12 +87,12 @@ function App() {
             <Input
               fontSize={"1.5rem"}
               placeholder="Search comics"
-              mt={"8px"}
+              mt={["0", "8px"]}
               fontFamily="bebas neue"
               color="#E9E9EB"
               onChange={(e) => setComic(e.target.value)}
             />
-            <InputRightElement w="7rem" mt={"8px"}>
+            <InputRightElement w="7rem" mt={["0", "8px"]}>
               <Button
                 ml={"50%"}
                 bg={"transparent"}
