@@ -18,7 +18,7 @@ import Comics from "./Comics/comics";
 
 function App() {
   const [data, setData] = useState([]);
-  const [comic, setComic] = useState([]);
+  const [comic, setComic] = useState("a");
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -87,12 +87,12 @@ function App() {
             <Input
               fontSize={"1.5rem"}
               placeholder="Search comics"
-              mt={["0", "8px"]}
+              mt={["0", "5px"]}
               fontFamily="bebas neue"
               color="#E9E9EB"
               onChange={(e) => setComic(e.target.value)}
             />
-            <InputRightElement w="7rem" mt={["3px", "8px"]}>
+            <InputRightElement w="7rem" mt={["0", "5px"]}>
               <Button
                 ml={"50%"}
                 bg={"transparent"}
