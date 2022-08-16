@@ -10,10 +10,9 @@ import {
   InputRightElement,
   Button,
   Spinner,
-  Stack,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import SearchIcon from "./assets/searvh-icon.png";
+import SearchIcon from "./assets/search-icon.png";
 import Marvel from "./assets/Marvel_Logo.svg.png";
 import Comics from "./Comics/comics";
 
