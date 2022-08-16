@@ -73,7 +73,7 @@ function App() {
             mt={["5px", "0"]}
             display={display ? "none" : "flex"}
             onClick={() => setDisplay(!display)}
-            _hover={"none"}
+            _hover={{}}
             as="button"
           >
             <Image src={SearchIcon} boxSize={["15px", "26px"]} />
@@ -92,7 +92,7 @@ function App() {
               color="#E9E9EB"
               onChange={(e) => setComic(e.target.value)}
             />
-            <InputRightElement w="7rem" mt={["0", "8px"]}>
+            <InputRightElement w="7rem" mt={["3px", "8px"]}>
               <Button
                 ml={"50%"}
                 bg={"transparent"}
