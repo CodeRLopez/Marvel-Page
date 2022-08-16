@@ -15,16 +15,17 @@ import { useState, useEffect } from "react";
 import SearchIcon from "./assets/search-icon.png";
 import Marvel from "./assets/Marvel_Logo.svg.png";
 import Comics from "./Comics/comics";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [data, setData] = useState([]);
-  const [comic, setComic] = useState([]);
+  const [comic, setComic] = useState("a");
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const fetchingData = async () => {
     const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=40&titleStartsWith=${comic}`
+      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&titleStartsWith=${comic}`
     );
     const res = await data.json();
     setData(res.data.results);
@@ -33,13 +34,15 @@ function App() {
 
   const initialData = async () => {
     const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=40`
+      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15`
     );
     const res = await data.json();
     setData(res.data.results);
+    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     initialData();
   }, []);
 
@@ -52,14 +55,14 @@ function App() {
         rounded="2xl"
         bg="#1e213a"
       >
-        <Flex direction={"row"} w={"35%"} justifyContent={"center"}>
+        <Flex direction={"row"} w={"90%"} justifyContent={"center"}>
           <Image src={Marvel} alt="Marvel Logo" w={[75, 125]} />
           <Text
             bg={"none"}
             fontFamily="bebas neue"
             fontSize={["25px", "50px"]}
             color="#E9E9EB"
-            mt={"-9px"}
+            mt={["0", "-9px"]}
             ml={"20px"}
             h={"30px"}
             display={display ? "none" : "flex"}
@@ -67,27 +70,32 @@ function App() {
             Comics
           </Text>
           <Square
-            ml={"2%"}
+            ml={["5px", "1%"]}
+            mt={["5px", "0"]}
             display={display ? "none" : "flex"}
             onClick={() => setDisplay(!display)}
-            _hover={"none"}
+            _hover={{}}
             as="button"
           >
             <Image src={SearchIcon} boxSize={["15px", "26px"]} />
           </Square>
 
-          <InputGroup ml={"15px"} display={!display ? "none" : "flex"}>
+          <InputGroup
+            ml={"15px"}
+            display={!display ? "none" : "flex"}
+            maxW={"300px"}
+          >
             <Input
               fontSize={"1.5rem"}
               placeholder="Search comics"
-              mt={"8px"}
+              mt={["0", "5px"]}
               fontFamily="bebas neue"
               color="#E9E9EB"
               onChange={(e) => setComic(e.target.value)}
             />
-            <InputRightElement w="7rem" mt={"8px"}>
+            <InputRightElement w="7rem" mt={["0", "5px"]}>
               <Button
-                ml={"18%"}
+                ml={"50%"}
                 bg={"transparent"}
                 onClick={() => {
                   setDisplay(!display);
@@ -126,6 +134,9 @@ function App() {
           })}
         </Flex>
       </HStack>
+      <Flex justifyContent={"center"} my={"50px"}>
+        <Pagination />
+      </Flex>
     </Box>
   );
 }

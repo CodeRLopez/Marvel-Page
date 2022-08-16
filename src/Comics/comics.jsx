@@ -21,7 +21,7 @@ function Comics(props) {
 
   return (
     <Box textAlign={"center"}>
-      <Center py={12} mx={"10px"} bgOpacity="50%">
+      <Center py={12} mx={"10px"}>
         <Box
           role={"group"}
           p={6}
