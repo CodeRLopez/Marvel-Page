@@ -37,9 +37,11 @@ function App() {
     );
     const res = await data.json();
     setData(res.data.results);
+    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     initialData();
   }, []);
 
@@ -52,14 +54,14 @@ function App() {
         rounded="2xl"
         bg="#1e213a"
       >
-        <Flex direction={"row"} w={"35%"} justifyContent={"center"}>
+        <Flex direction={"row"} w={"90%"} justifyContent={"center"}>
           <Image src={Marvel} alt="Marvel Logo" w={[75, 125]} />
           <Text
             bg={"none"}
             fontFamily="bebas neue"
             fontSize={["25px", "50px"]}
             color="#E9E9EB"
-            mt={"-9px"}
+            mt={["0", "-9px"]}
             ml={"20px"}
             h={"30px"}
             display={display ? "none" : "flex"}
@@ -67,7 +69,8 @@ function App() {
             Comics
           </Text>
           <Square
-            ml={"2%"}
+            ml={["5px", "1%"]}
+            mt={["5px", "0"]}
             display={display ? "none" : "flex"}
             onClick={() => setDisplay(!display)}
             _hover={"none"}
@@ -76,7 +79,11 @@ function App() {
             <Image src={SearchIcon} boxSize={["15px", "26px"]} />
           </Square>
 
-          <InputGroup ml={"15px"} display={!display ? "none" : "flex"}>
+          <InputGroup
+            ml={"15px"}
+            display={!display ? "none" : "flex"}
+            maxW={"300px"}
+          >
             <Input
               fontSize={"1.5rem"}
               placeholder="Search comics"
@@ -87,7 +94,7 @@ function App() {
             />
             <InputRightElement w="7rem" mt={"8px"}>
               <Button
-                ml={"18%"}
+                ml={"50%"}
                 bg={"transparent"}
                 onClick={() => {
                   setDisplay(!display);
