@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import SearchIcon from "./assets/search-icon.png";
 import Marvel from "./assets/Marvel_Logo.svg.png";
 import Comics from "./Comics/comics";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [data, setData] = useState([]);
@@ -24,7 +25,7 @@ function App() {
 
   const fetchingData = async () => {
     const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=40&titleStartsWith=${comic}`
+      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&titleStartsWith=${comic}`
     );
     const res = await data.json();
     setData(res.data.results);
@@ -33,7 +34,7 @@ function App() {
 
   const initialData = async () => {
     const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=40`
+      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15`
     );
     const res = await data.json();
     setData(res.data.results);
@@ -133,6 +134,9 @@ function App() {
           })}
         </Flex>
       </HStack>
+      <Flex justifyContent={"center"} my={"50px"}>
+        <Pagination />
+      </Flex>
     </Box>
   );
 }
