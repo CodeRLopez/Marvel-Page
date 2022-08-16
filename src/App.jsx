@@ -23,28 +23,18 @@ function App() {
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const fetchingData = async () => {
-    const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&titleStartsWith=${comic}`
-    );
-    const res = await data.json();
-    setData(res.data.results);
-    setLoading(false);
-  };
-
-  const initialData = async () => {
-    const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15`
-    );
-    const res = await data.json();
-    setData(res.data.results);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const fetchingData = async () => {
+      const data = await fetch(
+        `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&titleStartsWith=${comic}`
+      );
+      const res = await data.json();
+      setData(res.data.results);
+      setLoading(false);
+    };
     setLoading(true);
-    initialData();
-  }, []);
+    fetchingData();
+  }, [comic]);
 
   return (
     <Box bg="#1e213a" w="100vw" h="100vh" overflowY="auto">
@@ -99,7 +89,6 @@ function App() {
                 bg={"transparent"}
                 onClick={() => {
                   setDisplay(!display);
-                  fetchingData();
                   setLoading(true);
                 }}
               >
