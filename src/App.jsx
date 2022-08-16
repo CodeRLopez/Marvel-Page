@@ -9,6 +9,8 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Spinner,
+  Stack,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import SearchIcon from "./assets/searvh-icon.png";
@@ -19,6 +21,7 @@ function App() {
   const [data, setData] = useState([]);
   const [comic, setComic] = useState([]);
   const [display, setDisplay] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchingData = async () => {
     const data = await fetch(
@@ -26,6 +29,7 @@ function App() {
     );
     const res = await data.json();
     setData(res.data.results);
+    setLoading(false);
   };
 
   const initialData = async () => {
@@ -89,6 +93,7 @@ function App() {
                 onClick={() => {
                   setDisplay(!display);
                   fetchingData();
+                  setLoading(true);
                 }}
               >
                 <Image src={SearchIcon} boxSize={["15px", "26px"]} />
@@ -98,7 +103,16 @@ function App() {
         </Flex>
       </HStack>
 
-      <HStack>
+      <Flex
+        h={"50vh"}
+        justifyContent={"center"}
+        display={loading ? "flex" : "none"}
+        alignItems={"center"}
+      >
+        <Spinner w={"100px"} h={"100px"} color="#E9E9EB" thickness="15px" />
+      </Flex>
+
+      <HStack display={loading ? "none" : "flex"}>
         <Flex spacing="30px" p={"15px"} justifyContent={"center"} wrap={"wrap"}>
           {data.map((co) => {
             return (
