@@ -26,7 +26,7 @@ function Comics(props) {
           role={"group"}
           p={6}
           maxW={"330px"}
-          minW={"250px"}
+          minW={["250px", "330px"]}
           boxShadow={"dark-lg"}
           rounded={"lg"}
           pos={"relative"}
@@ -62,7 +62,7 @@ function Comics(props) {
         </Box>
       </Center>
       <>
-        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={"outside"}>
+        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={"inside"}>
           <ModalOverlay />
           <ModalContent bg="#171f30" borderRadius="2xl">
             <ModalHeader color="#d1d1dc">{props.title}</ModalHeader>
