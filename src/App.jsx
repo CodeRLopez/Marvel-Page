@@ -22,11 +22,12 @@ function App() {
   const [comic, setComic] = useState("a");
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     const fetchingData = async () => {
       const data = await fetch(
-        `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&titleStartsWith=${comic}`
+        `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&offset=${offset}&titleStartsWith=${comic}`
       );
       const res = await data.json();
       setData(res.data.results);
@@ -34,7 +35,7 @@ function App() {
     };
     setLoading(true);
     fetchingData();
-  }, [comic]);
+  }, [comic, offset]);
 
   return (
     <Box bg="#1e213a" w="100vw" h="100vh" overflowY="auto">
@@ -123,8 +124,12 @@ function App() {
           })}
         </Flex>
       </HStack>
-      <Flex justifyContent={"center"} my={"50px"}>
-        <Pagination />
+      <Flex
+        justifyContent={"center"}
+        my={"50px"}
+        display={loading ? "none" : "flex"}
+      >
+        <Pagination setOffset={setOffset} />
       </Flex>
     </Box>
   );
