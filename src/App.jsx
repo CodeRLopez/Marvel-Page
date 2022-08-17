@@ -23,12 +23,12 @@ function App() {
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
-  const inputValue = useRef("a");
+  const inputValue = useRef();
 
   useEffect(() => {
     const fetchingData = async () => {
       const data = await fetch(
-        `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&offset=${offset}&titleStartsWith=${comic}`
+        `${process.env.REACT_APP_API_URL}ts=1&hasDigitalIssue=false&limit=15&offset=${offset}&titleStartsWith=${comic}&apikey=${process.env.REACT_APP_API_KEY}&hash=${process.env.REACT_APP_API_HASH}`
       );
       const res = await data.json();
       setData(res.data.results);
@@ -40,7 +40,6 @@ function App() {
 
   const handleInputValue = () => {
     setComic(inputValue.current.value);
-    console.log(inputValue, comic);
   };
 
   return (
