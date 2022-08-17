@@ -11,7 +11,7 @@ import {
   Button,
   Spinner,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchIcon from "./assets/search-icon.png";
 import Marvel from "./assets/Marvel_Logo.svg.png";
 import Comics from "./Comics/comics";
@@ -23,6 +23,7 @@ function App() {
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
+  const inputValue = useRef("a");
 
   useEffect(() => {
     const fetchingData = async () => {
@@ -36,6 +37,11 @@ function App() {
     setLoading(true);
     fetchingData();
   }, [comic, offset]);
+
+  const handleInputValue = () => {
+    setComic(inputValue.current.value);
+    console.log(inputValue, comic);
+  };
 
   return (
     <Box bg="#1e213a" w="100vw" h="100vh" overflowY="auto">
@@ -82,7 +88,7 @@ function App() {
               mt={["0", "5px"]}
               fontFamily="bebas neue"
               color="#E9E9EB"
-              onChange={(e) => setComic(e.target.value)}
+              ref={inputValue}
             />
             <InputRightElement w="7rem" mt={["0", "5px"]}>
               <Button
@@ -91,6 +97,7 @@ function App() {
                 onClick={() => {
                   setDisplay(!display);
                   setLoading(true);
+                  handleInputValue();
                 }}
               >
                 <Image src={SearchIcon} boxSize={["15px", "26px"]} />
