@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/Marvel-Page/static/js/main.c3d1dc39.js",
+    "static/media/Marvel_Logo.svg.png": "/Marvel-Page/static/media/Marvel_Logo.svg.275558ebb62a64a6b12c.png",
+    "index.html": "/Marvel-Page/index.html",
+    "main.c3d1dc39.js.map": "/Marvel-Page/static/js/main.c3d1dc39.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c3d1dc39.js"
+  ]
+}
