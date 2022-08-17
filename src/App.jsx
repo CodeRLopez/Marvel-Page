@@ -11,7 +11,7 @@ import {
   Button,
   Spinner,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchIcon from "./assets/search-icon.png";
 import Marvel from "./assets/Marvel_Logo.svg.png";
 import Comics from "./Comics/comics";
@@ -22,29 +22,25 @@ function App() {
   const [comic, setComic] = useState("a");
   const [display, setDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const fetchingData = async () => {
-    const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15&titleStartsWith=${comic}`
-    );
-    const res = await data.json();
-    setData(res.data.results);
-    setLoading(false);
-  };
-
-  const initialData = async () => {
-    const data = await fetch(
-      `https://gateway.marvel.com:443/v1/public/comics?ts=1&apikey=4f1c0b87d2c3832319457bd835ad0225&hash=8c5681ec8d747cda59a34afbb90155d7&hasDigitalIssue=false&limit=15`
-    );
-    const res = await data.json();
-    setData(res.data.results);
-    setLoading(false);
-  };
+  const [offset, setOffset] = useState(0);
+  const inputValue = useRef();
 
   useEffect(() => {
+    const fetchingData = async () => {
+      const data = await fetch(
+        `${process.env.REACT_APP_API_URL}ts=1&hasDigitalIssue=false&limit=15&offset=${offset}&titleStartsWith=${comic}&apikey=${process.env.REACT_APP_API_KEY}&hash=${process.env.REACT_APP_API_HASH}`
+      );
+      const res = await data.json();
+      setData(res.data.results);
+      setLoading(false);
+    };
     setLoading(true);
-    initialData();
-  }, []);
+    fetchingData();
+  }, [comic, offset]);
+
+  const handleInputValue = () => {
+    setComic(inputValue.current.value);
+  };
 
   return (
     <Box bg="#1e213a" w="100vw" h="100vh" overflowY="auto">
@@ -91,7 +87,7 @@ function App() {
               mt={["0", "5px"]}
               fontFamily="bebas neue"
               color="#E9E9EB"
-              onChange={(e) => setComic(e.target.value)}
+              ref={inputValue}
             />
             <InputRightElement w="7rem" mt={["0", "5px"]}>
               <Button
@@ -99,8 +95,8 @@ function App() {
                 bg={"transparent"}
                 onClick={() => {
                   setDisplay(!display);
-                  fetchingData();
                   setLoading(true);
+                  handleInputValue();
                 }}
               >
                 <Image src={SearchIcon} boxSize={["15px", "26px"]} />
@@ -134,8 +130,12 @@ function App() {
           })}
         </Flex>
       </HStack>
-      <Flex justifyContent={"center"} my={"50px"}>
-        <Pagination />
+      <Flex
+        justifyContent={"center"}
+        my={"50px"}
+        display={loading ? "none" : "flex"}
+      >
+        <Pagination setOffset={setOffset} />
       </Flex>
     </Box>
   );
